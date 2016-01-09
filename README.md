@@ -18,4 +18,5 @@ nfl.json contains the output from scrapeNFL.py in json format. It contains the f
 tester.py tests the data from nfl.json on the machine learning algorithms, requiring numpy and running on python3. It takes two optional command line arguments:
 * --ann: Test on the artificial neural network (requires Tensorflow)
 * --mnb: Test on the Multinomial Naive Bayes classifier (requires sklearn and nltk)
+
 See result.out for the outfile from a run on our test data with the --mnb parameter

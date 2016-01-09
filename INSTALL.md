@@ -15,4 +15,4 @@ For debian/ubuntu:
           sudo pip3 install sklearn
   * For the Artificial Neural Net, follow [Google's instructions on their website for Tensorflow,](https://www.tensorflow.org/versions/master/get_started/os_setup.html) or try the following:
 
-          sudo pip install --upgrade https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-0.6.0-cp27-none-linux_x86_64.whl
+          sudo pip3 install --upgrade https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-0.6.0-cp27-none-linux_x86_64.whl
