@@ -15,7 +15,7 @@ nfl.json contains the output from scrapeNFL.py in json format. It contains the f
   * mean: mean point difference in games. Example: 2.594 (home teams win by that much in our data, on average, from 1995)
   * stdev: standard deviation of point difference in games. Example: 15.316 (home teams win with a stdev of that much in our data, on average, from 1995)
 
-  tester.py tests the data from nfl.json on the machine learning algorithms, requiring numpy and running on python3. It takes two optional command line arguments:
-  * --ann: Test on the artificial neural network (requires Tensorflow)
-  * --mnb: Test on the Multinomial Naive Bayes classifier (requires sklearn and nltk)
- 
+tester.py tests the data from nfl.json on the machine learning algorithms, requiring numpy and running on python3. It takes two optional command line arguments:
+* --ann: Test on the artificial neural network (requires Tensorflow)
+* --mnb: Test on the Multinomial Naive Bayes classifier (requires sklearn and nltk)
+See result.out for the outfile from a run on our test data with the --mnb parameter
