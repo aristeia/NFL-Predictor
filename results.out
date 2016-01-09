@@ -1,0 +1,13 @@
+Loaded data from nfl.json
+Parsed data from nfl.json
+Starting machine learning
+Doing a Multinomial Naive Bayes Classifier
+Performing leave-320-out cross-validation
+With leave-320-out cross-validation, the algorithm is 50.9057% accurate
+Performing leave-160-out cross-validation
+With leave-160-out cross-validation, the algorithm is 53.4666% accurate
+Performing leave-16-out cross-validation
+With leave-16-out cross-validation, the algorithm is 52.842% accurate
+Performing leave-1-out cross-validation
+With leave-1-out cross-validation, the algorithm is 53.7164% accurate
+Done
