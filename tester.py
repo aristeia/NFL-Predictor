@@ -95,44 +95,33 @@ def naiveBayes():
      getTeamFeats(game[0], season, "home") + getTeamFeats(game[1], season, "away") 
     ), game[2]) 
   for season, games in exact_data.items() 
-  if int(season) >= 2005
   for game in games if season in data]
   shuffle(feats)
 
-  training, testing = feats[:int(len(feats)*0.75)], feats[int(len(feats)*0.75):]
+  def leaveKOutValidation(k=1):
+    accuracy = 0.0
+    print("Performing leave-"+str(k)+"-out cross-validation")
+    gamesClusters = [feats[int(i*k):int((i+1)*k)] for i in range(int(len(feats)/k))]
+    for games in gamesClusters:
+      training = [x for x in feats if x not in games]
 
-  pipeline = Pipeline([('tfidf', TfidfTransformer()),
-    #('chi2', SelectKBest(chi2, k=250)),  
-    ('nb', MultinomialNB())])
+      pipeline = Pipeline([('tfidf', TfidfTransformer()),
+        #('chi2', SelectKBest(chi2, k=250)),  
+        ('nb', MultinomialNB())])
 
-  classifier = SklearnClassifier(pipeline).train(training)
+      classifier = SklearnClassifier(pipeline).train(training)
+
+      rw = []
+      for game in games:
+        classification = classifier.classify(game[0])
+        accuracy += int((game[1] > 0) == (classification > 0)) / float(len(feats))
+    print("With leave-"+str(k)+"-out cross-validation, the algorithm is "+str(round(accuracy*100,4))+"% accurate")
   
-  accuracy = 0
-  for t in testing:
-    classification = classifier.classify(t[0])
-    accuracy += int((t[1] > 0) == (classification > 0)) / float(len(testing))
+  leaveKOutValidation(int(len(feats)/5))
+  leaveKOutValidation(int(len(feats)/10))
+  leaveKOutValidation(int(len(feats)/100))
+  leaveKOutValidation()
 
-  print("Training on 75% and testing on 25% of the data at random, the algorithm is "+str(round(accuracy*100,4))+"% accurate")
-
-  accuracy = 0.0
-  i=0
-  print("Performing leave-one-out cross-validation")
-  for game in feats:
-    training = [x for x in feats if x!=game]
-
-    pipeline = Pipeline([('tfidf', TfidfTransformer()),
-      #('chi2', SelectKBest(chi2, k=250)),  
-      ('nb', MultinomialNB())])
-
-    classifier = SklearnClassifier(pipeline).train(training)
-
-    rw = []
-    classification = classifier.classify(game[0])
-    accuracy += int((game[1] > 0) == (classification > 0)) / float(len(feats))
-    i+=1
-    if i%5==0:
-      print("After "+str(i)+" games, accuracy is at "+str(round(accuracy*float(len(feats))*100 / i,4))+'%')
-  print("With leave-one-out cross-validation, the algorithm is "+str(round(accuracy*100,4))+"% accurate")
 
 print("Starting machine learning")
 if '--ann' in sys.argv:
